@@ -1,0 +1,32 @@
+{
+  "name": "servicenow-wakeup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "wakeup": "npx wdio wdio.wakeup.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosbermejop/servicenow-wakeup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosbermejop/servicenow-wakeup/issues"
+  },
+  "homepage": "https://github.com/carlosbermejop/servicenow-wakeup#readme",
+  "dependencies": {
+    "@wdio/cli": "^6.10.11",
+    "node-ssh": "^11.1.1"
+  },
+  "devDependencies": {
+    "@wdio/jasmine-framework": "^6.10.11",
+    "@wdio/local-runner": "^6.10.13",
+    "@wdio/spec-reporter": "^6.10.6",
+    "@wdio/sync": "^6.10.11",
+    "chromedriver": "^87.0.4",
+    "wdio-chromedriver-service": "^6.0.4"
+  }
+}
