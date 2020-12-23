@@ -7,8 +7,9 @@ const HomePage = require('../pageobjects/home.page');
 describe('My Login application', () => {
     it('should login with valid credentials', () => {
         var listOfInstances = getUpdateSetsFromManifest();
-        HomePage.open();
+        
         listOfInstances.forEach( (instance) => {
+            HomePage.open();
             LoginPage.inputEmailAddress.waitForDisplayed({ timeout: 10 * 1000 });
             LoginPage.login(instance.email, instance.password);
             HomePage.textInstanceStatus.waitForDisplayed({ timeout: 20 * 1000 });
@@ -21,7 +22,9 @@ describe('My Login application', () => {
                     browser.pause(3 * 1000);
                     if (HomePage.textInstanceStatus.getText() !== "Waking Instance") {
                         HomePage.btnWakeInstance.click();
-                    } else {
+                        console.log(`The PDI for email address ${instance.email} is being awaken!`);
+                    } 
+                    else {
                         console.log(`The PDI for email address ${instance.email} is being awaken!`);
                     }
                     break;
@@ -38,8 +41,7 @@ describe('My Login application', () => {
             HomePage.btnAvatar.click();
             HomePage.btnSignOut.waitForDisplayed({ timeout: 5 * 1000 });
             HomePage.btnSignOut.click();
-            HomePage.btnSignIn.click();
-            HomePage.btnSignIn.click();
+            browser.reloadSession();
         })
 
     });
