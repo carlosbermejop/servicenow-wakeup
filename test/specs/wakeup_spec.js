@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const LoginPage = require('../pageobjects/login.page');
-const HomePage = require('../pageobjects/home.page');
+const LoginPage = require('../pageobjects/login.developers.page');
+const HomePage = require('../pageobjects/home.developers.page');
 
-describe('My Login application', () => {
-    it('should login with valid credentials', () => {
+describe('Wake up ServiceNow Instances', () => {
+    it('should wake up my SN instances', () => {
         var listOfInstances = getUpdateSetsFromManifest();
         
         listOfInstances.forEach( (instance) => {
@@ -18,7 +18,7 @@ describe('My Login application', () => {
                     console.log(`The PDI for email address ${instance.email} is already online.`);
                     break;
                 case "Hibernating":
-                    HomePage.btnWakeInstance.click();
+                   HomePage.btnWakeInstance.click(); //  browser.executeScript("arguments[0].click();", HomePage.btnWakeInstance)  
                     browser.pause(3 * 1000);
                     if (HomePage.textInstanceStatus.getText() !== "Waking Instance") {
                         HomePage.btnWakeInstance.click();
