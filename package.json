@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "wakeup": "npx wdio wdio.wakeup.js",
+    "wakeup": "npx wdio wdio.wakeup.js & npx allure open ./test/results/reports/",
+    "allure": "npx allure open ./test/results/reports/",
     "encrypt": "node passwordManagement.js",
     "encrypt:dev": "nodemon passwordManagement.js"
   },
@@ -26,10 +27,12 @@
     "webdriver-manager": "^12.1.8"
   },
   "devDependencies": {
+    "@wdio/allure-reporter": "^7.0.1",
     "@wdio/jasmine-framework": "^6.11.0",
     "@wdio/local-runner": "^6.12.1",
     "@wdio/spec-reporter": "^6.11.0",
     "@wdio/sync": "^6.11.0",
+    "allure-commandline": "^2.13.8",
     "chromedriver": "^88.0.0",
     "nodemon": "^2.0.7",
     "wdio-chromedriver-service": "^6.0.4"

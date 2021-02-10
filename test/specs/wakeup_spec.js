@@ -1,14 +1,25 @@
 const fs = require("fs");
 const path = require("path");
+const { startStep, endStep, addStory, addIssue, addTestId, addEnvironment, addDescription, addAttachment } = require('@wdio/allure-reporter').default;
 
 const LoginPage = require('../pageobjects/login.developers.page');
 const HomePage = require('../pageobjects/home.developers.page');
 
+
 describe('Wake up ServiceNow Instances', () => {
     it('should wake up my SN instances', () => {
+        addDescription("This test should wakeup the ServiceNow Instances defined on sn-instances.json.")
+        addStory("TEST_STORY");
+        addIssue("TEST_ISSUE");
+        addTestId("TEST_ID");
+        startStep("ServiceNow Instance Wakeup.");
         var listOfInstances = getUpdateSetsFromManifest();
+
+        addAttachment("File containing the instances", listOfInstances);
         
         listOfInstances.forEach( (instance) => {
+            startStep(`Waking up instance ${instance.email.split("@")[0]}`);
+            addEnvironment("Username:", instance.email);
             HomePage.open();
             LoginPage.inputEmailAddress.waitForDisplayed({ timeout: 10 * 1000 });
             LoginPage.login(instance.email, instance.password);
@@ -42,8 +53,9 @@ describe('Wake up ServiceNow Instances', () => {
             HomePage.btnSignOut.waitForDisplayed({ timeout: 5 * 1000 });
             HomePage.btnSignOut.click();
             browser.reloadSession();
+            endStep();
         })
-
+        endStep();
     });
 });
 
