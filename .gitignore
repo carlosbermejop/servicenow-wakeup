@@ -3,4 +3,4 @@ package-lock.json
 debug.log
 yarn.lock
 key.json
-test/results/
+test/results/*
