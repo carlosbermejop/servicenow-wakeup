@@ -178,7 +178,7 @@ exports.config = {
 
         try {
             fse.emptyDirSync("./test/results/output/");
-            fse.copySync("./test/results/reports/history/", "./test/results/output/history");
+            fse.copySync("./test/results/reports/history/", "./test/results/output/history/");
         } catch (e) {
             console.error(e);
         }
