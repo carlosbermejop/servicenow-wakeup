@@ -1,4 +1,5 @@
 const allure = require("allure-commandline");
+const fse = require("fs-extra");
 
 exports.config = {
     //
@@ -173,8 +174,15 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    onPrepare: function (config, capabilities) {
+
+        try {
+            fse.emptyDirSync("./test/results/output/");
+            fse.copySync("./test/results/reports/history/", "./test/results/output/history");
+        } catch (e) {
+            console.error(e);
+        }
+    },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
