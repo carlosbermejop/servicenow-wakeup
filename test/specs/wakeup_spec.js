@@ -23,21 +23,25 @@ describe('Wake up ServiceNow Instances', () => {
             HomePage.open();
             LoginPage.inputEmailAddress.waitForDisplayed({ timeout: 10 * 1000 });
             LoginPage.login(instance.email, instance.password);
-            HomePage.textInstanceStatus.waitForDisplayed({ timeout: 20 * 1000 });
+            browser.waitUntil(
+                () => HomePage.btnAvatar.isDisplayed(),
+                {
+                    timeout: 10 * 1000,
+                    interval: 1000
+                }
+            )
+            HomePage.btnAvatar.click();
+            browser.waitUntil(
+                () => HomePage.textInstanceStatus.isDisplayed(),
+                {
+                    timeout: 10 * 1000,
+                    interval: 1000
+                }
+            )
+
             switch (HomePage.textInstanceStatus.getText()) {
                 case "Online":
                     console.log(`The PDI for email address ${instance.email} is already online.`);
-                    break;
-                case "Hibernating":
-                   HomePage.btnWakeInstance.click(); //  browser.executeScript("arguments[0].click();", HomePage.btnWakeInstance)  
-                    browser.pause(3 * 1000);
-                    if (HomePage.textInstanceStatus.getText() !== "Waking Instance") {
-                        HomePage.btnWakeInstance.click();
-                        console.log(`The PDI for email address ${instance.email} is being awaken!`);
-                    } 
-                    else {
-                        console.log(`The PDI for email address ${instance.email} is being awaken!`);
-                    }
                     break;
                 case "Waking Instance":
                     console.log(`The PDI for email address ${instance.email} is already being awaken!`);
@@ -49,8 +53,6 @@ describe('Wake up ServiceNow Instances', () => {
                     console.log(`The PDI for email address ${instance.email} is currently at status ${HomePage.textInstanceStatus.getText()}`);
                     break;
             }
-            HomePage.btnAvatar.click();
-            HomePage.btnSignOut.waitForDisplayed({ timeout: 5 * 1000 });
             HomePage.btnSignOut.click();
             browser.reloadSession();
             endStep();
